@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { X, Lock, User } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 interface AdminLoginProps {
   isOpen: boolean;
@@ -13,7 +13,7 @@ const AdminLogin = ({ isOpen, onClose }: AdminLoginProps) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   if (!isOpen) return null;
 
@@ -29,7 +29,7 @@ const AdminLogin = ({ isOpen, onClose }: AdminLoginProps) => {
     const success = login(username, password);
     if (success) {
       onClose();
-      navigate('/admin');
+      router.push('/admin');
     } else {
       setError('Invalid credentials');
     }
